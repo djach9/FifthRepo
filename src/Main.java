@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Main {
@@ -22,6 +23,18 @@ public class Main {
                 System.out.println(key + ": " + value);
             }
         });
+
+
+        List<String> output = properties.entrySet()
+                .stream()
+                .map(entry -> {
+                    String key = entry.getKey();
+                    String value = Set.of(sensitiveKeys).contains(key) ? "***" : entry.getValue();
+                    return key + ": " + value;
+                })
+                .collect(Collectors.toList());
+
+        output.forEach(System.out::println);
 
     }
 }
